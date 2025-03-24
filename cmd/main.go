@@ -32,6 +32,9 @@ func function0() error {
 func main() {
 	normalError := errors.New("normal error")
 	temporalError := function0()
+	// log each error
+	fmt.Println("le normal error:", normalError)
+	fmt.Println("le temporal error:", temporalError)
 
 	if errors.Is(temporalError, nerr.TemporaryError) {
 		fmt.Println("'temporalError' is temporary error!")
