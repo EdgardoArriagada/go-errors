@@ -2,31 +2,18 @@ package main
 
 import (
 	"errors"
+	"example/user/go-errors/cmd/err"
 	"fmt"
 )
 
-type Temporary struct {
-	Temporary bool
-	message   string
-}
-
-func (e *Temporary) Error() string {
-	return fmt.Sprintf("%s", e.message)
-}
-
-func NewTemporaryError(message string) *Temporary {
-	return &Temporary{Temporary: true, message: message}
-}
-
-func IsTemporary(err error) bool {
-	te, ok := err.(*Temporary)
-	return ok && te.Temporary
-}
-
 func main() {
 	normalError := errors.New("normal error")
-	temporaryError := NewTemporaryError("some temporary error")
+	temporaryError := err.NewTemporaryError("some temporary error")
 
-	fmt.Println("with normal error", IsTemporary(normalError))
-	fmt.Println("with temporary error", IsTemporary(temporaryError))
+	fmt.Println("with normal error", err.IsTemporary(normalError))
+	fmt.Println("with temporary error", err.IsTemporary(temporaryError))
+
+	// printing messages
+	fmt.Println("with normal error:", normalError)
+	fmt.Println("with temporary error:", temporaryError)
 }
