@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -13,15 +14,15 @@ func (e *Temporary) Error() string {
 	return fmt.Sprintf("%s", e.message)
 }
 
-func run() error {
-	return &Temporary{
-		Temporary: true,
-		message:   "didn't work",
-	}
+func IsTemporary(err error) bool {
+	te, ok := err.(*Temporary)
+	return ok && te.Temporary
 }
 
 func main() {
-	if err := run(); err != nil {
-		fmt.Println(err)
-	}
+	normalError := errors.New("normal error")
+	temporaryError := &Temporary{Temporary: true, message: "temporary error"}
+
+	fmt.Println("with normal error", IsTemporary(normalError))
+	fmt.Println("with temporary error", IsTemporary(temporaryError))
 }
