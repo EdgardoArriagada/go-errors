@@ -15,9 +15,9 @@ func function2() error {
 	// wrap it making it temporary
 	if err := externalFunction(); err != nil {
 
-		return errors.Join(err, errorCtx,
+		return errors.Join(nerr.TemporaryError, err, errorCtx,
 			errors.New("failed calling externalFunction"),
-			nerr.TemporaryError)
+		)
 	}
 
 	return nil

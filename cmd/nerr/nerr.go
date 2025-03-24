@@ -8,4 +8,4 @@ func (e *temporaryError) Error() string {
 	return e.message
 }
 
-var TemporaryError = &temporaryError{message: "temporary error"}
+var TemporaryError = &temporaryError{message: "[Temporary Error]"}
