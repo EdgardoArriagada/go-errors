@@ -2,23 +2,21 @@ package main
 
 import (
 	"fmt"
-	"time"
 )
 
-type MyError struct {
-	When time.Time
-	What string
+type Temporary struct {
+	Temporary bool
+	message   string
 }
 
-func (e *MyError) Error() string {
-	return fmt.Sprintf("at %v, %s",
-		e.When, e.What)
+func (e *Temporary) Error() string {
+	return fmt.Sprintf("%s", e.message)
 }
 
 func run() error {
-	return &MyError{
-		time.Now(),
-		"it didn't work",
+	return &Temporary{
+		Temporary: true,
+		message:   "didn't work",
 	}
 }
 
