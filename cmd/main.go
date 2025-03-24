@@ -2,16 +2,16 @@ package main
 
 import (
 	"errors"
-	"example/user/go-errors/cmd/err"
+	"example/user/go-errors/cmd/nerr"
 	"fmt"
 )
 
 func main() {
 	normalError := errors.New("normal error")
-	temporaryError := err.NewTemporaryError("some temporary error")
+	temporaryError := nerr.NewTemporaryError("some temporary error")
 
-	fmt.Println("with normal error", err.IsTemporary(normalError))
-	fmt.Println("with temporary error", err.IsTemporary(temporaryError))
+	fmt.Println("with normal error", nerr.IsTemporary(normalError))
+	fmt.Println("with temporary error", nerr.IsTemporary(temporaryError))
 
 	// printing messages
 	fmt.Println("with normal error:", normalError)
