@@ -33,8 +33,6 @@ func main() {
 	normalError := errors.New("normal error")
 	temporalError := function0()
 
-	fmt.Println("le approach2Error", temporalError)
-
 	if errors.Is(temporalError, nerr.TemporaryError) {
 		fmt.Println("'temporalError' is temporary error!")
 	} else {
