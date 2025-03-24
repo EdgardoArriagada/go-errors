@@ -4,6 +4,8 @@ import (
 	"fmt"
 )
 
+/// Approach 1
+
 type Error struct {
 	Temporary  bool
 	BadRequest bool
@@ -31,3 +33,15 @@ func IsBadRequest(err error) bool {
 	te, ok := err.(*Error)
 	return ok && te.BadRequest
 }
+
+/// Approach 2
+
+type temporaryError struct {
+	message string
+}
+
+func (e *temporaryError) Error() string {
+	return e.message
+}
+
+var TemporaryError = &temporaryError{message: "temporary error"}

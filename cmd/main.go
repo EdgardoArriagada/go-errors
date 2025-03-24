@@ -26,6 +26,29 @@ func function0() error {
 	return nil
 }
 
+func function22() error {
+	// some external error
+	return errors.New("some external error")
+}
+
+func function11() error {
+	// wrap it making it temporary
+	if err := function22(); err != nil {
+		error := errors.New("at function 11")
+		return errors.Join(err, error, nerr.TemporaryError)
+	}
+
+	return nil
+}
+
+func function00() error {
+	if err := function11(); err != nil {
+		return errors.Join(err, errors.New("at function00"))
+	}
+
+	return nil
+}
+
 func main() {
 	normalError := errors.New("normal error")
 	temporaryError := nerr.NewTemporaryError("some temporary error")
@@ -39,4 +62,11 @@ func main() {
 
 	badRequestError := function0()
 	fmt.Println("with bad request error:", badRequestError)
+
+	approach2Error := function00()
+	fmt.Println("le approach2Error", approach2Error)
+
+	if errors.Is(approach2Error, nerr.TemporaryError) {
+		fmt.Println("is temporary error!")
+	}
 }
